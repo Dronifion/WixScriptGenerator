@@ -1,0 +1,2 @@
+"C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe" sign /a /tr http://timestamp.entrust.net/rfc3161ts2 /fd SHA256 "!(TargetPath)"
+"C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe" verify /pa /v "!(TargetPath)" > ..\VerifyMsiCodesign.txt

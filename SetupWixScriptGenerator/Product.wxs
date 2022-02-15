@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define ProductName = "Wix Toolset Script Generator"?>
+<?define service_1 = "WixToolsetScriptGenerator_1"?>
+<?define Manufacturer = "Lester Soo"?>
+<?define Version = "1.0.7926.33803"?>
+<?define UpgradeCode = "{c7ebccd6-87b5-aa2c-57e0-4305d94578c6}"?>
+<Wix xmlns = "http://schemas.microsoft.com/wix/2006/wi"
+   xmlns:util = "http://schemas.microsoft.com/wix/UtilExtension">
+<Product Id ="*"
+   Name ="$(var.ProductName)"
+   Manufacturer ="$(var.Manufacturer)"
+   UpgradeCode ="$(var.UpgradeCode)"
+   Version ="$(var.Version)"
+   Language ="1033">
+<Package InstallerVersion ="300"
+   Compressed ="yes"/>
+<Media Id ="1"
+   Cabinet ="WixToolsetScriptGenerator.cab"
+   EmbedCab ="yes"/>
+<MajorUpgrade Schedule ="afterInstallInitialize"
+   DowngradeErrorMessage ="A newer version of Wix Toolset Script Generator is already installed. Setup will now exit."
+   AllowSameVersionUpgrades ="yes"/>
+<Icon Id ="icon.ico" SourceFile="S:\Personal\WixScriptGenerator\WixScriptGenerator\bin\Release\Lock.ico" />
+<Property Id ="ARPPRODUCTICON" Value="icon.ico" />
+<Directory Id ="TARGETDIR"
+   Name ="SourceDir">
+   <Directory Id ="ProgramFilesFolder">
+       <Directory Id ="ROOTDIRECTORY"
+           Name ="$(var.Manufacturer)">
+           <Directory Id ="MainInStallerFolder"
+               Name ="$(var.ProductName)">
+           </Directory>
+       </Directory>
+   </Directory>
+   <Directory Id ="ProgramMenuFolder" />
+</Directory>
+<DirectoryRef Id ="MainInStallerFolder">
+   <Component Id ="ReleaseItem_1" Guid="{6c0fe8ed-4c06-a156-1e9f-5d0a383e9572}">
+       <File Id ="Lockico_1"
+           Source ="S:\Personal\WixScriptGenerator\WixScriptGenerator\bin\Release\Lock.ico"
+           KeyPath ="no" />
+       <File Id ="WixScriptGeneratorexe_1"
+           Source ="S:\Personal\WixScriptGenerator\WixScriptGenerator\bin\Release\WixScriptGenerator.exe"
+           KeyPath ="yes" />
+   </Component>
+</DirectoryRef>
+<DirectoryRef Id ="ProgramMenuFolder">
+   <Component Id ="ApplicationShortcut" Guid="{a9beb39e-af78-1f21-e661-143884ae9e24}">
+       <Shortcut Id="ApplicationStartMenuShortcut" Name="Wix Toolset Script Generator" WorkingDirectory="MAINFOLDER" Description="Starts Wix Toolset Script Generator" Target="[#WixScriptGeneratorexe_1]" />
+       <RegistryValue Root="HKCU" Key="Software\Lester Soo\Wix Toolset Script Generator" Name="ApplicationShortcutsInstalled" Type="integer" Value="1" KeyPath="yes" />
+       <RegistryKey Root="HKLM" Key="Software\Lester Soo\Wix Toolset Script Generator" >
+           <RegistryValue Name="Version" Type="string" Value="1.0.7926.33803" KeyPath="no" />
+       </RegistryKey>
+   </Component>
+</DirectoryRef>
+<Feature Id="$(var.service_1)"
+           Title ="$(var.service_1)"
+           Level ="1">
+<ComponentRef Id="ReleaseItem_1"/>
+<ComponentRef Id="ApplicationShortcut" />
+</Feature>
+</Product>
+</Wix>
